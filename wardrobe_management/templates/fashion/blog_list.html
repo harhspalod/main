@@ -1,0 +1,30 @@
+<!-- templates/fashion/blog_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Fashion Blogs{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Fashion Blogs</h1>
+    <a href="{% url 'create_blog' %}" class="btn btn-primary mb-4"><i class="fas fa-plus"></i> Create New Blog</a>
+
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ blog.image.url }}" class="card-img-top" alt="{{ blog.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <p class="card-text">{{ blog.description|truncatewords:20 }}</p>
+                    <a href="{% url 'blog_detail' blog.id %}" class="btn btn-info"><i class="fas fa-book-open"></i> Read More</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No blogs available yet. <a href="{% url 'create_blog' %}">Create one now</a></p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

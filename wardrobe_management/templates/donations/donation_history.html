@@ -1,0 +1,21 @@
+<!-- templates/donations/donation_history.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Donation History</title>
+</head>
+<body>
+    <h1>Your Donation History</h1>
+    <ul>
+        {% for donation in donations %}
+        <li>
+            <p>{{ donation.clothes.name }} - Donated on {{ donation.donation_date }}</p>
+            <p>Recipient: {{ donation.recipient_name }} - Contact: {{ donation.recipient_contact }}</p>
+        </li>
+        {% empty %}
+        <p>No donations yet.</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}">Back to Wardrobe</a>
+</body>
+</html>

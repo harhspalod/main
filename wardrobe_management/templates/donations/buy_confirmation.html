@@ -1,0 +1,29 @@
+<!-- templates/donations/buy_confirmation.html -->
+{% extends 'base.html' %}
+
+{% block title %}Confirm Purchase{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Confirm Your Purchase</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ donation.clothes.image.url }}" class="card-img-top" alt="{{ donation.clothes.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ donation.clothes.name }}</h5>
+                    <p class="card-text"><strong>Type:</strong> {{ donation.get_action_display }}</p>
+                    <p class="card-text"><strong>Donated by:</strong> {{ donation.donor.username }}</p>
+                    <p class="card-text"><strong>Price:</strong> ${{ donation.clothes.price }}</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-block">Confirm Purchase</button>
+                    </form>
+                    <a href="{% url 'donation_page' %}" class="btn btn-secondary btn-block mt-2">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

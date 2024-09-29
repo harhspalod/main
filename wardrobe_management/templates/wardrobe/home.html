@@ -1,0 +1,39 @@
+<!-- templates/wardrobe/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}My Wardrobe{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">My Wardrobe</h1>
+    <a href="{% url 'add_clothes' %}" class="btn btn-primary mb-4"><i class="fas fa-plus"></i> Add New Clothes</a>
+    
+    <div class="row">
+        {% for cloth in clothes %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ cloth.image.url }}" class="card-img-top" alt="{{ cloth.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ cloth.name }}</h5>
+                    <p class="card-text">Category: {{ cloth.category }}</p>
+                    <a href="{% url 'update_clothes' cloth.id %}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                    <a href="{% url 'delete_clothes' cloth.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
+                    
+                    <!-- Donate Button -->
+                    <a href="{% url 'donate_options' cloth.id %}" class="btn btn-success mt-2"><i class="fas fa-hand-holding-heart"></i> Donate</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No clothes in your wardrobe. <a href="{% url 'add_clothes' %}">Add some clothes</a></p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Floating Add Button -->
+    <a href="{% url 'add_clothes' %}" class="btn btn-primary btn-lg rounded-circle position-fixed" style="bottom: 20px; right: 20px;">
+        <i class="fas fa-plus"></i>
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Barter Clothes</title>
+</head>
+<body>
+    <h1>Barter {{ donation.clothes.name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="barter_cloth">Select clothes to trade:</label>
+        <select name="barter_cloth">
+            {% for cloth in available_clothes %}
+                <option value="{{ cloth.id }}">{{ cloth.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Complete Barter</button>
+    </form>
+    <a href="{% url 'community_board' %}">Back to Community</a>
+</body>
+</html>

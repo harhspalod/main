@@ -1,0 +1,19 @@
+<!-- templates/fashion/blog_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ form.instance.id|yesno:"Update Blog,Create Blog" }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">{{ form.instance.id|yesno:"Update Blog,Create Blog" }}</h1>
+    
+    <div class="card p-4 shadow-sm">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-save"></i> Save</button>
+        </form>
+        <a href="{% url 'blog_list' %}" class="btn btn-secondary btn-block mt-3"><i class="fas fa-arrow-left"></i> Back to Blogs</a>
+    </div>
+</div>
+{% endblock %}

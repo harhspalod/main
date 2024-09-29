@@ -1,0 +1,28 @@
+<!-- templates/donations/donate_clothes.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Donate Clothes</title>
+</head>
+<body>
+    <h1>Donate Clothes</h1>
+    <ul>
+        {% for cloth in clothes %}
+        <li>
+            <img src="{{ cloth.image.url }}" alt="{{ cloth.name }}" width="100">
+            <p>{{ cloth.name }} - {{ cloth.category }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="cloth_id" value="{{ cloth.id }}">
+                <label for="recipient_name">Recipient Name:</label>
+                <input type="text" name="recipient_name" required>
+                <label for="recipient_contact">Recipient Contact:</label>
+                <input type="text" name="recipient_contact" required>
+                <button type="submit">Donate</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}">Back to Wardrobe</a>
+</body>
+</html>

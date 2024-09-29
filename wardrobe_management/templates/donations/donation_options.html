@@ -1,0 +1,39 @@
+<!-- templates/donations/donation_options.html -->
+{% extends 'base.html' %}
+
+{% block title %}Choose Donation Type{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Choose Donation Type for "{{ cloth.name }}"</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ cloth.image.url }}" class="card-img-top" alt="{{ cloth.name }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ cloth.name }}</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Select Donation Type:</label>
+                            <select name="donation_type" class="form-control">
+                                <option value="free">Donate for Free</option>
+                                <option value="rent">Rent</option>
+                                <option value="barter">Barter</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Confirm Donation</button>
+                    </form>
+
+                    {% if error %}
+                    <div class="alert alert-danger mt-3">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

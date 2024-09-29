@@ -1,0 +1,39 @@
+<!-- templates/donations/community_board.html -->
+{% extends 'base.html' %}
+
+{% block title %}Community Exchange{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Community Exchange</h1>
+
+<div class="row">
+    {% for item in items %}
+    <div class="col-md-4">
+        <div class="card">
+            <img src="{{ item.clothes.image.url }}" class="card-img-top" alt="{{ item.clothes.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.clothes.name }}</h5>
+                <p class="card-text">Action: {{ item.get_action_display }}</p>
+                <p>Donor: {{ item.donor.username }}</p>
+                <p>Contact: {{ item.recipient_contact }}</p>
+                
+                {% if item.action == 'barter' %}
+                    <a href="{% url 'barter_clothes' item.id %}" class="btn btn-warning">Barter</a>
+                {% elif item.action == 'rent' %}
+                    <a href="{% url 'rent_clothes' item.id %}" class="btn btn-info">Rent</a>
+                {% endif %}
+                
+                <a href="{% url 'chat_room' item.id %}" class="btn btn-primary">Chat</a>
+                
+                <form method="post" action="{% url 'complete_transaction' item.id %}" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Donate Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,38 @@
+<!-- templates/donations/donation_page.html -->
+<!-- templates/donations/donation_page.html -->
+{% extends 'base.html' %}
+
+{% block title %}Available Donations{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Available Donations</h1>
+
+    <div class="row">
+        {% for donation in donations %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ donation.clothes.image.url }}" class="card-img-top" alt="{{ donation.clothes.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ donation.clothes.name }}</h5>
+                    <p class="card-text">Type: {{ donation.get_action_display }}</p>
+                    <p class="card-text">Donated by: {{ donation.donor.username }}</p>
+
+                    <!-- Button to Purchase, Barter, Rent, or Chat -->
+                    {% if donation.action == 'barter' %}
+                        <a href="{% url 'barter_clothes' donation.id %}" class="btn btn-warning">Barter</a>
+                    {% elif donation.action == 'rent' %}
+                        <a href="{% url 'rent_clothes' donation.id %}" class="btn btn-info">Rent</a>
+                    {% else %}
+                        <a href="{% url 'buy_donation' donation.id %}" class="btn btn-primary">Buy Now</a>
+                    {% endif %}
+                    <a href="{% url 'chat_room' donation.id %}" class="btn btn-info mt-2">Chat</a> <!-- New Chat Button -->
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No donated items available right now.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

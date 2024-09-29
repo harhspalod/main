@@ -1,0 +1,53 @@
+<!-- templates/admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+
+        <!-- Bartered & Donated Clothes Chart -->
+        <canvas id="clothesChart" width="400" height="200"></canvas>
+
+        <!-- Messages & Notifications Chart -->
+        <canvas id="messageChart" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+        fetch("{% url 'dashboard_data' %}")
+        .then(response => response.json())
+        .then(data => {
+            const clothesChartCtx = document.getElementById('clothesChart').getContext('2d');
+            const clothesChart = new Chart(clothesChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Bartered', 'Donated'],
+                    datasets: [{
+                        label: 'Number of Clothes',
+                        data: [data.bartered_count, data.donated_count],
+                        backgroundColor: ['#36A2EB', '#FF6384'],
+                    }]
+                },
+            });
+
+            const messageChartCtx = document.getElementById('messageChart').getContext('2d');
+            const messageChart = new Chart(messageChartCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['New Messages', 'Unread Notifications'],
+                    datasets: [{
+                        label: 'Number',
+                        data: [data.new_messages_count, data.notifications_count],
+                        backgroundColor: ['#FFCE56', '#4BC0C0'],
+                    }]
+                },
+            });
+        });
+    </script>
+</body>
+</html>

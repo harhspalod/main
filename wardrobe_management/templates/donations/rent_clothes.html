@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rent Clothes</title>
+</head>
+<body>
+    <h1>Rent {{ donation.clothes.name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="rental_period">Rental period (days):</label>
+        <input type="number" name="rental_period" min="1" required>
+        <button type="submit">Complete Rental</button>
+    </form>
+    <a href="{% url 'community_board' %}">Back to Community</a>
+</body>
+</html>

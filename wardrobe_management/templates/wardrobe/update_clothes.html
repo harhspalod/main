@@ -1,0 +1,19 @@
+<!-- templates/wardrobe/update_clothes.html -->
+{% extends 'base.html' %}
+
+{% block title %}Update Clothes{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Update "{{ form.instance.name }}"</h1>
+
+    <div class="card p-4 shadow-sm">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-block">Update Clothes</button>
+        </form>
+        <a href="{% url 'home' %}" class="btn btn-secondary btn-block mt-3">Back to Wardrobe</a>
+    </div>
+</div>
+{% endblock %}
